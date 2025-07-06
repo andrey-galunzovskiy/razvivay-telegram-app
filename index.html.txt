@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Развивайка - Семейный планировщик развития</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 414px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            color: white;
+            text-align: center;
+            padding: 20px 20px 30px;
+            border-radius: 0 0 25px 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="25" cy="25" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-20px) rotate(360deg); }
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .main-content {
+            padding: 20px;
+        }
+
+        .activity-of-day {
+            background: linear-gradient(135deg, #ffd89b, #19547b);
+            color: white;
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .activity-of-day:hover {
+            transform: translateY(-2px);
+        }
+
+        .activity-of-day::before {
+            content: '🌟';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .activity-of-day h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .activity-of-day p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .progress-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .progress-bar {
+            background: #e9ecef;
+            border-radius: 10px;
+            height: 8px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #4ecdc4, #44a08d);
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .category-card:hover::before {
+            left: 100%;
+        }
+
+        .category-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .category-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .category-count {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .speech { background: linear-gradient(135deg, #ffeaa7, #fab1a0); }
+        .motor { background: linear-gradient(135deg, #74b9ff, #0984e3); }
+        .creativity { background: linear-gradient(135deg, #fd79a8, #e84393); }
+        .logic { background: linear-gradient(135deg, #a29bfe, #6c5ce7); }
+        .physical { background: linear-gradient(135deg, #55efc4, #00b894); }
+
+        .achievements {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .achievements h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .stickers {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .sticker {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .sticker.earned {
+            background: linear-gradient(135deg, #ffd700, #ffb347);
+            animation: bounce 0.5s ease;
+        }
+
+        .sticker.locked {
+            background: #e9ecef;
+            filter: grayscale(100%);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .level-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 350px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .activity-meta {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .activity-tag {
+            background: #e9ecef;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .activity-materials {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .activity-steps {
+            margin-bottom: 20px;
+        }
+
+        .activity-step {
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #4ecdc4;
+        }
+
+        .complete-btn {
+            background: linear-gradient(135deg, #55efc4, #00b894);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .complete-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,184,148,0.3);
+        }
+
+        .complete-btn.completed {
+            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+        }
+
+        .age-filter {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .age-btn {
+            padding: 8px 16px;
+            border: 2px solid #e9ecef;
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .age-btn.active {
+            background: #4ecdc4;
+            color: white;
+            border-color: #4ecdc4;
+        }
+
+        .back-btn {
+            background: #f8f9fa;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .activities-list {
+            display: none;
+        }
+
+        .activity-item {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .activity-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .activity-item.completed {
+            background: linear-gradient(135deg, #dcedc8, #a5d6a7);
+        }
+
+        .activity-item h4 {
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .activity-item p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .celebration {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 60px;
+            z-index: 2000;
+            pointer-events: none;
+            animation: celebrate 1s ease-out;
+        }
+
+        @keyframes celebrate {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 414px;
+            background: white;
+            padding: 15px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .nav-icon {
+            font-size: 20px;
+        }
+
+        .nav-text {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .content-area {
+            padding-bottom: 80px;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                max-width: 100%;
+            }
+            
+            .categories {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                max-width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌟 Развивайка</h1>
+            <p>Семейный планировщик развития</p>
+        </div>
+
+        <div class="content-area">
+            <div id="main-screen" class="main-content">
+                <div class="activity-of-day" onclick="showDailyActivity()">
+                    <h3>🎯 Активность дня</h3>
+                    <p id="daily-activity-text">Звуковая игра - найди предметы на букву "А"</p>
+                </div>
+
+                <div class="progress-section">
+                    <div class="progress-header">
+                        <h3>📊 Прогресс недели</h3>
+                        <span id="progress-percentage">43%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 43%"></div>
+                    </div>
+                    <div class="stats">
+                        <span>Выполнено: <span id="completed-count">3</span></span>
+                        <span>Осталось: <span id="remaining-count">4</span></span>
+                    </div>
+                </div>
+
+                <div class="age-filter">
+                    <button class="age-btn active" onclick="filterByAge('all')">Все</button>
+                    <button class="age-btn" onclick="filterByAge('1-3')">1-3 года</button>
+                    <button class="age-btn" onclick="filterByAge('3-6')">3-6 лет</button>
+                    <button class="age-btn" onclick="filterByAge('6-9')">6-9 лет</button>
+                </div>
+
+                <div class="categories" id="categories-grid">
+                    <div class="category-card speech" onclick="showCategory('speech')">
+                        <div class="category-icon">🗣️</div>
+                        <div class="category-title">Развитие речи</div>
+                        <div class="category-count">4 активности</div>
+                    </div>
+                    <div class="category-card motor" onclick="showCategory('motor')">
+                        <div class="category-icon">✋</div>
+                        <div class="category-title">Моторика</div>
+                        <div class="category-count">4 активности</div>
+                    </div>
+                    <div class="category-card creativity" onclick="showCategory('creativity')">
+                        <div class="category-icon">🎨</div>
+                        <div class="category-title">Творчество</div>
+                        <div class="category-count">4 активности</div>
+                    </div>
+                    <div class="category-card logic" onclick="showCategory('logic')">
+                        <div class="category-icon">🧩</div>
+                        <div class="category-title">Логика</div>
+                        <div class="category-count">4 активности</div>
+                    </div>
+                    <div class="category-card physical" onclick="showCategory('physical')">
+                        <div class="category-icon">🏃</div>
+                        <div class="category-title">Физическая активность</div>
+                        <div class="category-count">4 активности</div>
+                    </div>
+                </div>
+
+                <div class="achievements">
+                    <h3>🏆 Достижения</h3>
+                    <div class="stickers">
+                        <div class="sticker earned">🌟</div>
+                        <div class="sticker earned">🎯</div>
+                        <div class="sticker earned">🚀</div>
+                        <div class="sticker locked">🏆</div>
+                        <div class="sticker locked">💎</div>
+                    </div>
+                    <div class="level-info">
+                        <span>Уровень: <strong>Исследователь</strong></span>
+                        <span>3/7 активностей</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="activities-screen" class="activities-list">
+                <div class="main-content">
+                    <button class="back-btn" onclick="showMainScreen()">← Назад</button>
+                    <h2 id="category-title">Развитие речи</h2>
+                    <div id="activities-container"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-nav">
+            <div class="nav-item" onclick="showMainScreen()">
+                <div class="nav-icon">🏠</div>
+                <div class="nav-text">Главная</div>
+            </div>
+            <div class="nav-item" onclick="showStats()">
+                <div class="nav-icon">📊</div>
+                <div class="nav-text">Статистика</div>
+            </div>
+            <div class="nav-item" onclick="showAchievements()">
+                <div class="nav-icon">🏆</div>
+                <div class="nav-text">Достижения</div>
+            </div>
+            <div class="nav-item" onclick="shareApp()">
+                <div class="nav-icon">📤</div>
+                <div class="nav-text">Поделиться</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for activity details -->
+    <div id="activity-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Название активности</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="activity-meta">
+                    <span class="activity-tag" id="modal-age">3-6 лет</span>
+                    <span class="activity-tag" id="modal-time">15 мин</span>
+                </div>
+                <div class="activity-materials">
+                    <h4>📋 Материалы:</h4>
+                    <ul id="modal-materials"></ul>
+                </div>
+                <div class="activity-steps">
+                    <h4>📝 Инструкция:</h4>
+                    <div id="modal-steps"></div>
+                </div>
+                <button class="complete-btn" id="modal-complete-btn" onclick="completeActivity()">
+                    Выполнено! 🎉
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Данные активностей
+        const activities = {
+            speech: [
+                {
+                    id: 'speech_1',
+                    name: 'Звуковая игра',
+                    description: 'Найди предметы на определенный звук',
+                    age: '3-6',
+                    time: '15 мин',
+                    materials: ['Различные предметы', 'Корзинка'],
+                    steps: [
+                        'Выберите звук или букву для игры',
+                        'Пройдитесь по дому и найдите предметы на этот звук',
+                        'Сложите все предметы в корзинку',
+                        'Проговорите каждое слово четко',
+                        'Придумайте с ребенком новые слова на этот звук'
+                    ],
+                    completed: false
+                },
+                {
+                    id: 'speech_2',
+                    name: 'Рассказ по картинке',
+                    description: 'Придумываем интересные истории',
+                    age: '3-6',
+                    time: '20 мин',
+                    materials: ['Яркие картинки', 'Детские книги'],
+                    steps: [
+                        'Выберите красочную картинку',
+                        'Рассмотрите все детали вместе',
+                        'Начните рассказ: "Однажды..."',
+                        'Задавайте вопросы: "Что произошло дальше?"',
+                        'Запишите историю или нарисуйте продолжение'
+                    ],
+                    completed: true
+                },
+                {
+                    id: 'speech_3',
+                    name: 'Словарик эмоций',
+                    description: 'Изучаем и называем чувства',
+                    age: '3-6',
+                    time: '10 мин',
+                    materials: ['Зеркало', 'Карточки эмоций'],
+                    steps: [
+                        'Встаньте перед зеркалом',
+                        'Покажите разные эмоции: радость, грусть, удивление',
+                        'Называйте каждую эмоцию',
+                        'Обсудите, когда мы чувствуем себя так',
+                        'Поиграйте в "угадай эмоцию"'
+                    ],
+                    completed: false
+                },
+                {
+                    id: 'speech_4',
+                    name: 'Телефонный разговор',
+                    description: 'Учимся вести диалог',
+                    age: '3-6',
+                    time: '15 мин',
+                    materials: ['Игрушечные телефоны', 'Карточки с темами'],
+                    steps: [
+                        'Возьмите игрушечные телефоны',
+                        'Разыграйте разговор с бабушкой',
+                        'Научите правильно здороваться и прощаться',
+                        'Обсудите, как рассказать о своих делах',
+                        'Поменяйтесь ролями'
+                    ],
+                    completed: true
+                }
+            ],
+            motor: [
+                {
+                    id: 'motor_1',
+                    name: 'Пальчиковая гимнастика',
+                    description: 'Развиваем мелкую моторику рук',
+                    age: '1-3',
+                    time: '10 мин',
+                    materials: ['Ваши руки', 'Потешки'],
+                    steps: [
+                        'Сядьте удобно напротив ребенка',
+                        'Начните с простых движений: "Сорока-ворона"',
+                        'Массируйте каждый пальчик',
+                        'Выучите новые пальчиковые игры',
+                        'Повторите 2-3 раза'
+                    ],
+                    completed: false
+                },
+                {
+                    id: 'motor_2',
+                    name: 'Переливание воды',
+                    description: 'Игра с емкостями разных размеров',
+                    age: '1-3',
+                    time: '20 мин',
+                    materials: ['Разные емкости', 'Вода', 'Полотенце'],
+                    steps: [
+                        'Приготовьте тазик с водой',
+                        'Дайте ребенку разные емкости',
+                        'Покажите, как переливать воду',
+                        'Пусть ребенок экспериментирует',
+                        'Не забудьте про полотенце!'
+                    ],
+                    completed: true
+                },
+                {
+                    id: 'motor_3',
+                    name: 'Сортировка по цветам',
+                    description: 'Раскладываем предметы по цветам',
+                    age: '1-3',
+                    time: '15 мин',
+                    materials: ['Цветные емкости', 'Разноцветные предметы'],
+                    steps: [
+                        'Подготовьте емкости разных цветов',
+                        'Соберите предметы соответствующих цветов',
+                        'Покажите, как сортировать',
+                        'Проговаривайте названия цветов',
+                        'Похвалите за правильный выбор'
+                    ],
+                    completed: false
+                },
+                {
+                    id: 'motor_4',
+                    name: 'Рисование на песке',
+                    description: 'Развиваем координацию через рисование',
+                    age: '3-6',
+                    time: '25 мин',
+                    materials: ['Поднос', 'Песок или манка', 'Палочка'],
+                    steps: [
+                        'Насыпьте песок на поднос',
+                        'Разровняйте поверхность',
+                        'Покажите, как рисовать пальцем',
+                        'Нарисуйте простые фигуры',
+                        'Пусть ребенок создаст свой рисунок'
+                    ],
+                    completed: false
+                }
+            ],
+            creativity: [
+                {
+                    id: 'creativity_1',
+                    name: 'Отпечатки ладошек',
+                    description: 'Создаем животных из отпечатков',
+                    age: '3-6',
+                    time: '30 мин',
+                    materials: ['Краски', 'Бумага', 'Влажные салфетки'],
+                    steps: [
+                        'Приготовьте краски и бумагу',
+                        'Обмакните ладошку в краску',
+                        'Сделайте отпечаток на бумаге',
+                        'Дорисуйте детали, чтобы получилось животное',
+                        'Придумайте историю про ваше животное'
+                    ],
+                    completed: false
+                },
+                {
+                    id: 'creativity_2',
+                    name: 'Аппликация из листьев',
+                    description: 'Создаем картины из природных материалов',
+                    age: '3-6',
+                    time: '40 мин',
+                    materials: ['Листья', 'Клей', 'Бумага', 'Ножницы'],
+                    steps: [
+                        'Соберите красивые листья на прогулке',
+                        'Высушите их между страниц книги',
+                        'Придумайте, что будете создавать',
+                        'Приклейте листья на бумагу',
+                        'Дорисуйте недостающие детали'
+                    ],
+                    completed: true
+                },
+                {
+                    id: 'creativity_3',
+                    name: 'Пластилиновые истории',
+                    description: 'Лепим и рассказываем сказки',
+                    age: '3-6',
+                    time: '35 мин',
+                    materials: ['Пластилин', 'Доска для лепки', 'Стеки'],
+                    steps: [
+                        'Выберите героев для сказки',
+                        'Слепите их из пластилина',
+                        'Создайте декорации',
+                        'Разыграйте сказку с фигурками',
+                        'Придумайте продолжение истории'
+                    ],
+                    completed: false
+                },
+                {
+                    id: 'creativity_4',
+                    name: 'Коллаж мечты',
+                    description: 'Создаем картину желаний',
+                    age: '6-9',
+                    time: '45 мин',
+                    materials: ['Журналы', 'Ножницы', 'Клей', 'Ватман'],
+                    steps: [
+                        'Вырежьте картинки из журналов',
+                        'Выберите то, о чем мечтаете',
+                        'Разложите на листе композицию',
+                        'Приклейте все элементы',
+                        'Расскажите о своих мечтах'
+                    ],
+                    completed: false
+                }
+            ],
+            logic: [
+                {
+                    id: 'logic_1',
+                    name: 'Найди лишнее',
+                    description: 'Развиваем логическое мышление',
+                    age: '3-6',
+                    time: '15 мин',
+                    materials: ['Карточки с предметами', 'Или реальные предметы'],
+                    steps: [
+                        'Разложите 4 предмета в ряд',
+                        'Три должны быть из одной группы',
+                        'Попросите найти лишний предмет',
+                        'Обсудите, почему он лишний',
+                        'Усложните задание'
+                    ],
+                    completed: false
+                },
+                {
+                    id: 'logic_2',
+                    name: 'Собери пазл',
+                    description: 'Простые головоломки для развития',
+                    age: '3-6',
+                    time: '20 мин',
+                    materials: ['Пазлы по возрасту', 'Ровная поверхность'],
+                    steps: [
+                        'Выберите пазл подходящей сложности',
+                        'Рассмотрите картинку на коробке',
+                        'Начните с краев и углов',
+                        'Группируйте детали по цветам',
+                        'Радуйтесь результату вместе!'
+                    ],
+                    completed: true
+                },
+                {
+                    id: 'logic_3',
+                    name: 'Что было раньше?',
+                    description: 'Изучаем последовательности',
+                    age: '6-9',
+                    time: '15 мин',
+                    materials: ['Карточки с событиями', 'Или картинки'],
+                    steps: [
+                        'Подготовьте картинки событий',
+                        'Перемешайте их',
+                        'Попросите разложить по порядку',
+                        'Обсудите логику последовательности',
+                        'Придумайте свои примеры'
+                    ],
+                    completed: false
+                },
+                {
+                    id: 'logic_4',
+                    name: 'Математические загадки',
+                    description: 'Решаем простые задачки',
+                    age: '6-9',
+                    time: '25 мин',
+                    materials: ['Счетные палочки', 'Бумага', 'Карандаш'],
+                    steps: [
+                        'Начните с простых примеров',
+                        'Используйте наглядные материалы',
+                        'Придумайте задачи про игрушки',
+                        'Постепенно усложняйте',
+                        'Хвалите за попытки'
+                    ],
+                    completed: false
+                }
+            ],
+            physical: [
+                {
+                    id: 'physical_1',
+                    name: 'Зарядка с животными',
+                    description: 'Имитируем движения разных животных',
+                    age: '1-3',
+                    time: '10 мин',
+                    materials: ['Свободное пространство', 'Музыка (по желанию)'],
+                    steps: [
+                        'Включите веселую музыку',
+                        'Покажите, как ходит медведь',
+                        'Попрыгайте как зайчики',
+                        'Полетайте как птички',
+                        'Потянитесь как кошечки'
+                    ],
+                    completed: true
+                },
+                {
+                    id: 'physical_2',
+                    name: 'Полоса препятствий',
+                    description: 'Домашний спортивный комплекс',
+                    age: '3-6',
+                    time: '20 мин',
+                    materials: ['Подушки', 'Стулья', 'Веревка', 'Мячи'],
+                    steps: [
+                        'Постройте дорожку из подушек',
+                        'Поставьте препятствия из стульев',
+                        'Добавьте задания с мячом',
+                        'Покажите, как проходить',
+                        'Засеките время и улучшайте результат'
+                    ],
+                    completed: false
+                },
+                {
+                    id: 'physical_3',
+                    name: 'Танцевальная минутка',
+                    description: 'Свободные движения под музыку',
+                    age: '1-3',
+                    time: '15 мин',
+                    materials: ['Музыка', 'Хорошее настроение'],
+                    steps: [
+                        'Выберите любимые песни ребенка',
+                        'Начните танцевать первыми',
+                        'Повторяйте движения друг за другом',
+                        'Придумывайте новые движения',
+                        'Устройте танцевальный батл'
+                    ],
+                    completed: false
+                },
+                {
+                    id: 'physical_4',
+                    name: 'Йога для малышей',
+                    description: 'Простые асаны и растяжка',
+                    age: '3-6',
+                    time: '15 мин',
+                    materials: ['Коврик', 'Спокойная музыка'],
+                    steps: [
+                        'Начните с простых поз',
+                        'Поза собаки мордой вниз',
+                        'Поза кошки и коровы',
+                        'Поза дерева (с поддержкой)',
+                        'Закончите расслаблением'
+                    ],
+                    completed: false
+                }
+            ]
+        };
+
+        // Состояние приложения
+        let currentCategory = '';
+        let selectedAge = 'all';
+        let completedActivities = JSON.parse(localStorage.getItem('completedActivities')) || [];
+        let currentActivityId = '';
+
+        // Инициализация приложения
+        document.addEventListener('DOMContentLoaded', function() {
+            updateProgress();
+            updateAchievements();
+            loadDailyActivity();
+        });
+
+        // Функции навигации
+        function showMainScreen() {
+            document.getElementById('main-screen').style.display = 'block';
+            document.getElementById('activities-screen').style.display = 'none';
+        }
+
+        function showCategory(category) {
+            currentCategory = category;
+            document.getElementById('main-screen').style.display = 'none';
+            document.getElementById('activities-screen').style.display = 'block';
+            
+            const categoryTitles = {
+                speech: 'Развитие речи',
+                motor: 'Моторика', 
+                creativity: 'Творчество',
+                logic: 'Логика',
+                physical: 'Физическая активность'
+            };
+            
+            document.getElementById('category-title').textContent = categoryTitles[category];
+            renderActivities(category);
+        }
+
+        function renderActivities(category) {
+            const container = document.getElementById('activities-container');
+            const categoryActivities = activities[category] || [];
+            
+            container.innerHTML = '';
+            
+            categoryActivities.forEach(activity => {
+                if (selectedAge !== 'all' && activity.age !== selectedAge) {
+                    return;
+                }
+                
+                const isCompleted = completedActivities.includes(activity.id);
+                const activityDiv = document.createElement('div');
+                activityDiv.className = `activity-item ${isCompleted ? 'completed' : ''}`;
+                activityDiv.onclick = () => showActivityModal(activity);
+                
+                activityDiv.innerHTML = `
+                    <h4>${activity.name} ${isCompleted ? '✅' : ''}</h4>
+                    <p>${activity.description}</p>
+                    <div class="activity-meta">
+                        <span class="activity-tag">${activity.age} лет</span>
+                        <span class="activity-tag">${activity.time}</span>
+                    </div>
+                `;
+                
+                container.appendChild(activityDiv);
+            });
+        }
+
+        function showActivityModal(activity) {
+            currentActivityId = activity.id;
+            const modal = document.getElementById('activity-modal');
+            const isCompleted = completedActivities.includes(activity.id);
+            
+            document.getElementById('modal-title').textContent = activity.name;
+            document.getElementById('modal-age').textContent = activity.age + ' лет';
+            document.getElementById('modal-time').textContent = activity.time;
+            
+            const materialsList = document.getElementById('modal-materials');
+            materialsList.innerHTML = '';
+            activity.materials.forEach(material => {
+                const li = document.createElement('li');
+                li.textContent = material;
+                materialsList.appendChild(li);
+            });
+            
+            const stepsContainer = document.getElementById('modal-steps');
+            stepsContainer.innerHTML = '';
+            activity.steps.forEach((step, index) => {
+                const stepDiv = document.createElement('div');
+                stepDiv.className = 'activity-step';
+                stepDiv.innerHTML = `<strong>${index + 1}.</strong> ${step}`;
+                stepsContainer.appendChild(stepDiv);
+            });
+            
+            const completeBtn = document.getElementById('modal-complete-btn');
+            if (isCompleted) {
+                completeBtn.textContent = 'Выполнено! ✅';
+                completeBtn.className = 'complete-btn completed';
+            } else {
+                completeBtn.textContent = 'Выполнено! 🎉';
+                completeBtn.className = 'complete-btn';
+            }
+            
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('activity-modal').style.display = 'none';
+        }
+
+        function completeActivity() {
+            if (!completedActivities.includes(currentActivityId)) {
+                completedActivities.push(currentActivityId);
+                localStorage.setItem('completedActivities', JSON.stringify(completedActivities));
+                
+                showCelebration();
+                updateProgress();
+                updateAchievements();
+                
+                // Обновляем кнопку
+                const completeBtn = document.getElementById('modal-complete-btn');
+                completeBtn.textContent = 'Выполнено! ✅';
+                completeBtn.className = 'complete-btn completed';
+                
+                // Обновляем список активностей
+                if (currentCategory) {
+                    renderActivities(currentCategory);
+                }
+            }
+            
+            setTimeout(() => {
+                closeModal();
+            }, 1000);
+        }
+
+        function showCelebration() {
+            const celebration = document.createElement('div');
+            celebration.className = 'celebration';
+            celebration.textContent = '🎉';
+            document.body.appendChild(celebration);
+            
+            setTimeout(() => {
+                document.body.removeChild(celebration);
+            }, 1000);
+        }
+
+        function updateProgress() {
+            const totalActivities = Object.values(activities).flat().length;
+            const completed = completedActivities.length;
+            const percentage = Math.round((completed / totalActivities) * 100);
+            
+            document.getElementById('progress-percentage').textContent = percentage + '%';
+            document.querySelector('.progress-fill').style.width = percentage + '%';
+            document.getElementById('completed-count').textContent = completed;
+            document.getElementById('remaining-count').textContent = totalActivities - completed;
+        }
+
+        function updateAchievements() {
+            const completed = completedActivities.length;
+            const stickers = document.querySelectorAll('.sticker');
+            
+            // Логика получения стикеров
+            const stickerThresholds = [1, 3, 7, 12, 20];
+            
+            stickers.forEach((sticker, index) => {
+                if (completed >= stickerThresholds[index]) {
+                    sticker.className = 'sticker earned';
+                } else {
+                    sticker.className = 'sticker locked';
+                }
+            });
+            
+            // Обновляем уровень
+            let level = 'Новичок';
+            if (completed >= 15) level = 'Мастер';
+            else if (completed >= 7) level = 'Исследователь';
+            
+            document.querySelector('.level-info strong').textContent = level;
+        }
+
+        function loadDailyActivity() {
+            const allActivities = Object.values(activities).flat();
+            const today = new Date().getDate();
+            const dailyActivity = allActivities[today % allActivities.length];
+            document.getElementById('daily-activity-text').textContent = 
+                dailyActivity.name + ' - ' + dailyActivity.description;
+        }
+
+        function showDailyActivity() {
+            const allActivities = Object.values(activities).flat();
+            const today = new Date().getDate();
+            const dailyActivity = allActivities[today % allActivities.length];
+            showActivityModal(dailyActivity);
+        }
+
+        function filterByAge(age) {
+            selectedAge = age;
+            
+            // Обновляем активные кнопки
+            document.querySelectorAll('.age-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Перерендериваем категории если они показаны
+            if (currentCategory) {
+                renderActivities(currentCategory);
+            }
+        }
+
+        function showStats() {
+            alert('📊 Статистика:\n\nВыполнено активностей: ' + completedActivities.length + 
+                  '\nУровень: ' + document.querySelector('.level-info strong').textContent +
+                  '\nПрогресс недели: ' + document.getElementById('progress-percentage').textContent);
+        }
+
+        function showAchievements() {
+            alert('🏆 Ваши достижения:\n\n🌟 Первые шаги\n🎯 Целеустремленный\n🚀 На взлете\n' +
+                  (completedActivities.length >= 12 ? '🏆 Чемпион\n' : '') +
+                  (completedActivities.length >= 20 ? '💎 Мастер развития' : ''));
+        }
+
+        function shareApp() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Развивайка - Семейный планировщик',
+                    text: 'Отличное приложение для развития детей!',
+                    url: window.location.href
+                });
+            } else {
+                alert('📤 Поделитесь приложением "Развивайка" с друзьями!\n\nЭто отличный помощник для развития детей от 1 до 9 лет.');
+            }
+        }
+
+        // Закрытие модального окна при клике вне его
+        window.onclick = function(event) {
+            const modal = document.getElementById('activity-modal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
