@@ -419,160 +419,6 @@
             background: linear-gradient(135deg, #dcedc8, #a5d6a7);
         }
 
-        .activity-item.premium-locked {
-            background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
-            position: relative;
-            opacity: 0.7;
-        }
-
-        .activity-item.premium-locked::before {
-            content: '🔒';
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 20px;
-            color: #999;
-        }
-
-        .premium-badge {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 3px 8px;
-            border-radius: 10px;
-            font-size: 10px;
-            font-weight: bold;
-            display: inline-block;
-            margin-left: 5px;
-        }
-
-        .unlock-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 1001;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .unlock-content {
-            background: white;
-            border-radius: 20px;
-            max-width: 350px;
-            width: 100%;
-            text-align: center;
-            padding: 30px 20px;
-            position: relative;
-        }
-
-        .unlock-icon {
-            font-size: 60px;
-            margin-bottom: 20px;
-        }
-
-        .unlock-title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #333;
-        }
-
-        .unlock-subtitle {
-            color: #666;
-            margin-bottom: 20px;
-            line-height: 1.4;
-        }
-
-        .unlock-features {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 25px;
-        }
-
-        .unlock-features h4 {
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        .unlock-feature {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-            font-size: 14px;
-        }
-
-        .unlock-feature:last-child {
-            margin-bottom: 0;
-        }
-
-        .unlock-feature::before {
-            content: '✓';
-            color: #4ecdc4;
-            font-weight: bold;
-            font-size: 16px;
-        }
-
-        .unlock-buttons {
-            display: flex;
-            gap: 10px;
-        }
-
-        .unlock-btn {
-            flex: 1;
-            padding: 15px;
-            border: none;
-            border-radius: 15px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .unlock-premium {
-            background: linear-gradient(135deg, #4ecdc4, #44a08d);
-            color: white;
-        }
-
-        .unlock-premium:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
-        }
-
-        .unlock-cancel {
-            background: #e9ecef;
-            color: #666;
-        }
-
-        .unlock-close {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: #666;
-        }
-
-        .category-card.premium-category {
-            position: relative;
-            opacity: 0.8;
-        }
-
-        .category-card.premium-category::after {
-            content: '💎';
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 16px;
-        }
-
         .activity-item h4 {
             margin-bottom: 5px;
             color: #333;
@@ -961,29 +807,6 @@
             <p>Семейный планировщик развития</p>
         </div>
 
-    <!-- Modal for premium unlock -->
-    <div id="unlock-modal" class="unlock-modal">
-        <div class="unlock-content">
-            <button class="unlock-close" onclick="closeUnlockModal()">&times;</button>
-            <div class="unlock-icon">🔒</div>
-            <div class="unlock-title">Премиум контент</div>
-            <div class="unlock-subtitle">Эта активность доступна только в Премиум версии</div>
-            
-            <div class="unlock-features">
-                <h4>Что вы получите:</h4>
-                <div class="unlock-feature">50+ эксклюзивных активностей</div>
-                <div class="unlock-feature">Новые категории: Музыка, Наука</div>
-                <div class="unlock-feature">Планировщик недели</div>
-                <div class="unlock-feature">Расширенная статистика</div>
-            </div>
-            
-            <div class="unlock-buttons">
-                <button class="unlock-btn unlock-cancel" onclick="closeUnlockModal()">Позже</button>
-                <button class="unlock-btn unlock-premium" onclick="startPremiumFromModal()">Попробовать бесплатно</button>
-            </div>
-        </div>
-    </div>
-
         <div class="content-area">
             <div id="main-screen" class="main-content">
                 <div class="activity-of-day" onclick="showDailyActivity()">
@@ -1016,12 +839,12 @@
                     <div class="category-card speech" onclick="showCategory('speech')">
                         <div class="category-icon">🗣️</div>
                         <div class="category-title">Развитие речи</div>
-                        <div class="category-count">6 активностей</div>
+                        <div class="category-count">4 активности</div>
                     </div>
                     <div class="category-card motor" onclick="showCategory('motor')">
                         <div class="category-icon">✋</div>
                         <div class="category-title">Моторика</div>
-                        <div class="category-count">6 активностей</div>
+                        <div class="category-count">4 активности</div>
                     </div>
                     <div class="category-card creativity" onclick="showCategory('creativity')">
                         <div class="category-icon">🎨</div>
@@ -1037,16 +860,6 @@
                         <div class="category-icon">🏃</div>
                         <div class="category-title">Физическая активность</div>
                         <div class="category-count">4 активности</div>
-                    </div>
-                    <div class="category-card premium-category music" onclick="showPremiumCategory('music')">
-                        <div class="category-icon">🎵</div>
-                        <div class="category-title">Музыка <span class="premium-badge">ПРЕМИУМ</span></div>
-                        <div class="category-count">2 активности</div>
-                    </div>
-                    <div class="category-card premium-category science" onclick="showPremiumCategory('science')">
-                        <div class="category-icon">🔬</div>
-                        <div class="category-title">Наука <span class="premium-badge">ПРЕМИУМ</span></div>
-                        <div class="category-count">2 активности</div>
                     </div>
                 </div>
 
@@ -1148,30 +961,6 @@
                         </ul>
                         <button class="plan-button premium-button" onclick="startPremiumTrial()">Попробовать бесплатно</button>
                     </div>
-                </div>
-
-                <div class="pricing-cards">
-                    <div class="pricing-card">
-                        <div class="plan-name">Годовая подписка</div>
-                        <div class="plan-price">2990₽</div>
-                        <div class="plan-period">в год <span style="color: #4ecdc4; font-weight: bold;">(-17%)</span></div>
-                        <ul class="plan-features">
-                            <li>50+ развивающих активностей</li>
-                            <li>8 категорий развития</li>
-                            <li>Планировщик недели</li>
-                            <li>Расширенная статистика</li>
-                            <li>Семейный профиль</li>
-                            <li>Уведомления в Telegram</li>
-                            <li>Приоритетная поддержка</li>
-                        </ul>
-                        <button class="plan-button premium-button" onclick="startYearlySubscription()">Оформить годовую</button>
-                    </div>
-                </div>
-
-                <div style="text-align: center; margin: 20px 0; color: #666; font-size: 14px;">
-                    💳 Принимаем карты любых банков<br>
-                    🔒 Безопасная оплата через Telegram<br>
-                    ↩️ Легкая отмена подписки
                 </div>
 
                 <div class="premium-features">
@@ -1298,197 +1087,6 @@
                         'Звук "М": Мяч, машинка, молоко, мама',
                         'Звук "К": Кот, книга, кастрюля, картина'
                     ],
-                    completed: false
-                }
-            ],
-            music: [
-                {
-                    id: 'music_1',
-                    name: 'Домашний оркестр',
-                    description: 'Создаем музыку из подручных средств',
-                    age: '3-6',
-                    time: '20 мин',
-                    materials: ['Кастрюли', 'Ложки', 'Банки с крупой'],
-                    steps: [
-                        'Соберите "инструменты" по дому',
-                        'Испытайте звук каждого предмета',
-                        'Выберите ритм для игры',
-                        'Играйте вместе простые мелодии',
-                        'Устройте концерт для семьи'
-                    ],
-                    examples: [
-                        'Барабаны из кастрюль и ложек',
-                        'Маракасы из банок с рисом',
-                        'Ксилофон из стаканов с водой',
-                        'Гитара из коробки и резинок'
-                    ],
-                    premium: true,
-                    completed: false
-                },
-                {
-                    id: 'music_2',
-                    name: 'Музыкальные эмоции',
-                    description: 'Выражаем чувства через музыку',
-                    age: '3-6',
-                    time: '15 мин',
-                    materials: ['Музыкальные треки', 'Свободное пространство'],
-                    steps: [
-                        'Включите разную по настроению музыку',
-                        'Слушайте и обсуждайте эмоции',
-                        'Двигайтесь под музыку',
-                        'Показывайте эмоции движениями',
-                        'Рисуйте то, что чувствуете'
-                    ],
-                    examples: [
-                        'Грустная музыка - медленные движения',
-                        'Веселая - прыжки и танцы',
-                        'Спокойная - плавные движения рук',
-                        'Энергичная - активные танцы'
-                    ],
-                    premium: true,
-                    completed: false
-                }
-            ],
-            science: [
-                {
-                    id: 'science_1',
-                    name: 'Вулкан из соды',
-                    description: 'Безопасный химический эксперимент',
-                    age: '6-9',
-                    time: '30 мин',
-                    materials: ['Сода', 'Уксус', 'Пластилин', 'Красный краситель'],
-                    steps: [
-                        'Слепите вулкан из пластилина',
-                        'Сделайте углубление в центре',
-                        'Насыпьте соду в кратер',
-                        'Добавьте каплю красителя',
-                        'Влейте уксус и наблюдайте извержение!'
-                    ],
-                    examples: [
-                        'Объясните химическую реакцию простыми словами',
-                        'Повторите эксперимент несколько раз',
-                        'Измените количество ингредиентов',
-                        'Добавьте блестки для эффекта'
-                    ],
-                    premium: true,
-                    completed: false
-                },
-                {
-                    id: 'science_2',
-                    name: 'Радужное молоко',
-                    description: 'Изучаем поверхностное натяжение',
-                    age: '3-6',
-                    time: '15 мин',
-                    materials: ['Молоко', 'Пищевые красители', 'Ватные палочки', 'Жидкое мыло'],
-                    steps: [
-                        'Налейте молоко в тарелку',
-                        'Капните красители в разные места',
-                        'Обмакните палочку в мыло',
-                        'Коснитесь красителя палочкой',
-                        'Наблюдайте волшебство!'
-                    ],
-                    examples: [
-                        'Красители "убегают" от мыла',
-                        'Создаются красивые узоры',
-                        'Попробуйте разные красители',
-                        'Объясните, почему так происходит'
-                    ],
-                    premium: true,
-                    completed: false
-                }
-            ],
-                // Премиум активности для моторики
-                {
-                    id: 'motor_5',
-                    name: 'Массаж камнями',
-                    description: 'Тактильные ощущения с природными материалами',
-                    age: '1-3',
-                    time: '15 мин',
-                    materials: ['Гладкие камни', 'Теплая вода', 'Полотенце'],
-                    steps: [
-                        'Нагрейте камни в теплой воде',
-                        'Проверьте температуру',
-                        'Катайте камни по ладошкам ребенка',
-                        'Массируйте стопы камнями',
-                        'Завершите расслабляющими поглаживаниями'
-                    ],
-                    examples: [
-                        'Круговые движения по ладошкам',
-                        'Катание между пальчиками',
-                        'Массаж стоп от пяток к пальцам',
-                        'Поглаживания по рукам и ногам'
-                    ],
-                    premium: true,
-                    completed: false
-                },
-                {
-                    id: 'motor_6',
-                    name: 'Кулинарная лепка',
-                    description: 'Лепим из теста и готовим',
-                    age: '3-6',
-                    time: '45 мин',
-                    materials: ['Слоеное тесто', 'Формочки', 'Духовка'],
-                    steps: [
-                        'Раскатайте тесто вместе',
-                        'Вырезайте фигурки формочками',
-                        'Украшайте по желанию',
-                        'Запекайте под присмотром взрослых',
-                        'Наслаждайтесь результатом!'
-                    ],
-                    examples: [
-                        'Печенье в форме животных',
-                        'Слойки с яблоками',
-                        'Мини-пирожки с начинкой',
-                        'Праздничные фигурки'
-                    ],
-                    premium: true,
-                    completed: false
-                },
-                // Премиум активности для речи
-                {
-                    id: 'speech_5',
-                    name: 'Театр теней',
-                    description: 'Создаем спектакли с помощью теней',
-                    age: '3-6',
-                    time: '25 мин',
-                    materials: ['Фонарик', 'Простыня', 'Руки'],
-                    steps: [
-                        'Натяните простыню между стульями',
-                        'Направьте фонарик на простыню',
-                        'Показывайте фигуры руками',
-                        'Придумайте сюжет для представления',
-                        'Разыгрывайте сказки с тенями'
-                    ],
-                    examples: [
-                        'Зайчик: два пальца вверх как ушки',
-                        'Собачка: сложите руки определенным образом',
-                        'Птичка: машите "крыльями"',
-                        'Сказка "Колобок" в тенях'
-                    ],
-                    premium: true,
-                    completed: false
-                },
-                {
-                    id: 'speech_6',
-                    name: 'Радиошоу',
-                    description: 'Ведем собственную радиопередачу',
-                    age: '6-9',
-                    time: '30 мин',
-                    materials: ['Микрофон (игрушечный)', 'Блокнот', 'Музыка'],
-                    steps: [
-                        'Придумайте название радиостанции',
-                        'Подготовьте программу передачи',
-                        'Включите фоновую музыку',
-                        'Ведите передачу как настоящий диджей',
-                        'Берите интервью у игрушек'
-                    ],
-                    examples: [
-                        '"Добро пожаловать на Детское Радио!"',
-                        'Сводка погоды, новости из детской',
-                        'Музыкальные паузы с любимыми песнями',
-                        'Интервью с плюшевым мишкой'
-                    ],
-                    premium: true,
                     completed: false
                 },
                 {
@@ -1923,61 +1521,12 @@
         let selectedAge = 'all';
         let completedActivities = JSON.parse(localStorage.getItem('completedActivities')) || [];
         let currentActivityId = '';
-        let isPremiumUser = false; // Статус премиум подписки
-
-        // Проверка премиум статуса при загрузке
-        function checkPremiumStatus() {
-            // Проверяем через Telegram WebApp API или локальное хранение
-            if (window.Telegram?.WebApp?.initDataUnsafe?.user) {
-                const userId = window.Telegram.WebApp.initDataUnsafe.user.id;
-                // В реальном приложении здесь был бы запрос к серверу
-                isPremiumUser = localStorage.getItem(`premium_${userId}`) === 'true';
-            } else {
-                // Демо режим - проверяем локальное хранение
-                isPremiumUser = localStorage.getItem('premium_demo') === 'true';
-            }
-            
-            updatePremiumUI();
-        }
-
-        // Обновляем UI в зависимости от премиум статуса
-        function updatePremiumUI() {
-            if (isPremiumUser) {
-                // Скрываем премиум-значки для пользователей с подпиской
-                document.querySelectorAll('.premium-badge').forEach(badge => {
-                    badge.style.display = 'none';
-                });
-                
-                // Убираем замочки с активностей
-                document.querySelectorAll('.activity-item.premium-locked').forEach(item => {
-                    item.classList.remove('premium-locked');
-                });
-            }
-        }
 
         // Инициализация приложения
         document.addEventListener('DOMContentLoaded', function() {
             updateProgress();
             updateAchievements();
             loadDailyActivity();
-            checkPremiumStatus();
-            
-            // Инициализация Telegram WebApp
-            if (window.Telegram?.WebApp) {
-                window.Telegram.WebApp.ready();
-                window.Telegram.WebApp.expand();
-                
-                // Обработка событий оплаты
-                window.Telegram.WebApp.onEvent('invoiceClosed', function(eventData) {
-                    if (eventData.status === 'paid') {
-                        handleSuccessfulPayment();
-                    } else if (eventData.status === 'cancelled') {
-                        handleCancelledPayment();
-                    } else if (eventData.status === 'failed') {
-                        handleFailedPayment();
-                    }
-                });
-            }
         });
 
         // Функции навигации
@@ -1987,131 +1536,10 @@
             document.getElementById('premium-screen').style.display = 'none';
         }
 
-        function showPremiumCategory(category) {
-            showUnlockModal();
-        }
-
-        function showUnlockModal() {
-            document.getElementById('unlock-modal').style.display = 'flex';
-        }
-
-        function closeUnlockModal() {
-            document.getElementById('unlock-modal').style.display = 'none';
-        }
-
-        function startYearlySubscription() {
-            if (window.Telegram?.WebApp) {
-                const invoice = {
-                    title: 'Развивайка Премиум - Год',
-                    description: 'Годовая премиум подписка со скидкой 17%. Экономия 600₽!',
-                    payload: 'premium_subscription_yearly',
-                    provider_token: '', // Токен платежного провайдера
-                    currency: 'RUB',
-                    prices: [
-                        {
-                            label: 'Годовая подписка',
-                            amount: 299000 // 2990 рублей в копейках
-                        }
-                    ]
-                };
-
-                window.Telegram.WebApp.openInvoice(invoice.payload, function(status) {
-                    if (status === 'paid') {
-                        handleSuccessfulYearlyPayment();
-                    }
-                });
-            } else {
-                // Демо режим
-                if (confirm('🎉 ДЕМО: Годовая подписка\n\nЭкономия 600₽! Активировать премиум на год?')) {
-                    setTimeout(() => {
-                        handleSuccessfulYearlyPayment();
-                    }, 1000);
-                }
-            }
-        }
-
-        function handleSuccessfulYearlyPayment() {
-            isPremiumUser = true;
-            
-            // Сохраняем с отметкой о годовой подписке
-            const expiryDate = new Date();
-            expiryDate.setFullYear(expiryDate.getFullYear() + 1);
-            
-            if (window.Telegram?.WebApp?.initDataUnsafe?.user) {
-                const userId = window.Telegram.WebApp.initDataUnsafe.user.id;
-                localStorage.setItem(`premium_${userId}`, 'true');
-                localStorage.setItem(`premium_${userId}_type`, 'yearly');
-                localStorage.setItem(`premium_${userId}_expiry`, expiryDate.toISOString());
-            } else {
-                localStorage.setItem('premium_demo', 'true');
-                localStorage.setItem('premium_demo_type', 'yearly');
-                localStorage.setItem('premium_demo_expiry', expiryDate.toISOString());
-            }
-            
-            updatePremiumUI();
-            showYearlySuccessMessage();
-            
-            setTimeout(() => {
-                showMainScreen();
-            }, 3000);
-        }
-
-        function showYearlySuccessMessage() {
-            const successDiv = document.createElement('div');
-            successDiv.innerHTML = `
-                <div style="
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background: rgba(0,0,0,0.9);
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    z-index: 2000;
-                    color: white;
-                    text-align: center;
-                ">
-                    <div style="padding: 40px; border-radius: 20px; background: linear-gradient(135deg, #667eea, #764ba2);">
-                        <div style="font-size: 60px; margin-bottom: 20px;">🎉</div>
-                        <h2 style="margin-bottom: 15px;">Годовая подписка!</h2>
-                        <p style="margin-bottom: 20px;">Вы сэкономили 600₽!</p>
-                        <div style="font-size: 14px; opacity: 0.9;">
-                            ✨ Премиум активирован на год<br>
-                            💰 Экономия: 600 рублей<br>
-                            🚀 Полный доступ ко всем функциям
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            document.body.appendChild(successDiv);
-            
-            setTimeout(() => {
-                document.body.removeChild(successDiv);
-            }, 3000);
-        }
-
-        // Проверка истечения подписки
-        function checkSubscriptionExpiry() {
-            if (!isPremiumUser) return;
-            
-            let expiryDate;
-            if (window.Telegram?.WebApp?.initDataUnsafe?.user) {
-                const userId = window.Telegram.WebApp.initDataUnsafe.user.id;
-                expiryDate = localStorage.getItem(`premium_${userId}_expiry`);
-            } else {
-                expiryDate = localStorage.getItem('premium_demo_expiry');
-            }
-            
-            if (expiryDate && new Date(expiryDate) < new Date()) {
-                // Подписка истекла
-                isPremiumUser = false;
-                localStorage.removeItem('premium_demo');
-                updatePremiumUI();
-                alert('⏰ Ваша премиум подписка истекла\n\nПродлите подписку, чтобы продолжить пользоваться всеми возможностями Развивайки!');
-            }
+        function showPremium() {
+            document.getElementById('main-screen').style.display = 'none';
+            document.getElementById('activities-screen').style.display = 'none';
+            document.getElementById('premium-screen').style.display = 'block';
         }
 
         function showCategory(category) {
@@ -2124,19 +1552,11 @@
                 motor: 'Моторика', 
                 creativity: 'Творчество',
                 logic: 'Логика',
-                physical: 'Физическая активность',
-                music: 'Музыка',
-                science: 'Наука'
+                physical: 'Физическая активность'
             };
             
             document.getElementById('category-title').textContent = categoryTitles[category];
             renderActivities(category);
-        }
-
-        function showPremium() {
-            document.getElementById('main-screen').style.display = 'none';
-            document.getElementById('activities-screen').style.display = 'none';
-            document.getElementById('premium-screen').style.display = 'block';
         }
 
         function renderActivities(category) {
@@ -2151,23 +1571,12 @@
                 }
                 
                 const isCompleted = completedActivities.includes(activity.id);
-                const isPremium = activity.premium;
                 const activityDiv = document.createElement('div');
-                
-                let className = 'activity-item';
-                if (isCompleted) className += ' completed';
-                if (isPremium) className += ' premium-locked';
-                
-                activityDiv.className = className;
-                
-                if (isPremium) {
-                    activityDiv.onclick = () => showUnlockModal();
-                } else {
-                    activityDiv.onclick = () => showActivityModal(activity);
-                }
+                activityDiv.className = `activity-item ${isCompleted ? 'completed' : ''}`;
+                activityDiv.onclick = () => showActivityModal(activity);
                 
                 activityDiv.innerHTML = `
-                    <h4>${activity.name} ${isCompleted ? '✅' : ''} ${isPremium ? '<span class="premium-badge">ПРЕМИУМ</span>' : ''}</h4>
+                    <h4>${activity.name} ${isCompleted ? '✅' : ''}</h4>
                     <p>${activity.description}</p>
                     <div class="activity-meta">
                         <span class="activity-tag">${activity.age} лет</span>
@@ -2350,133 +1759,11 @@
 
         function startPremiumTrial() {
             if (window.Telegram?.WebApp) {
-                // Настройка параметров платежа
-                const invoice = {
-                    title: 'Развивайка Премиум',
-                    description: 'Премиум подписка на месяц. 7 дней бесплатно, затем 299₽/месяц',
-                    payload: 'premium_subscription_monthly',
-                    provider_token: '', // Здесь будет токен платежного провайдера
-                    currency: 'RUB',
-                    prices: [
-                        {
-                            label: 'Премиум подписка',
-                            amount: 29900 // Цена в копейках (299 рублей)
-                        }
-                    ],
-                    max_tip_amount: 0,
-                    suggested_tip_amounts: [],
-                    start_parameter: 'premium_subscription',
-                    provider_data: JSON.stringify({
-                        receipt: {
-                            items: [
-                                {
-                                    description: 'Развивайка Премиум - месяцная подписка',
-                                    quantity: '1.00',
-                                    amount: {
-                                        value: '299.00',
-                                        currency: 'RUB'
-                                    },
-                                    vat_code: 1
-                                }
-                            ]
-                        }
-                    })
-                };
-
-                // Отправка инвойса пользователю
-                window.Telegram.WebApp.openInvoice(invoice.payload, function(status) {
-                    if (status === 'paid') {
-                        handleSuccessfulPayment();
-                    }
-                });
-
+                // Интеграция с Telegram Payments (будет добавлена позже)
+                alert('🎉 Скоро! Интеграция с Telegram Payments в разработке.\n\nВы получите:\n✨ 7 дней бесплатно\n🎯 50+ активностей\n📅 Планировщик\n👨‍👩‍👧‍👦 Семейный профиль\n\nСтоимость: 299₽/месяц');
             } else {
-                // Демо режим - эмуляция успешной оплаты
-                showPaymentDemo();
+                alert('🎉 Премиум подписка!\n\n🎁 7 дней бесплатно\n💎 50+ эксклюзивных активностей\n📅 Планировщик недели\n📊 Расширенная статистика\n👨‍👩‍👧‍👦 Семейный профиль\n\nСтоимость: 299₽/месяц\n\nДля оформления свяжитесь с поддержкой.');
             }
-        }
-
-        function showPaymentDemo() {
-            if (confirm('🎉 ДЕМО РЕЖИМ\n\nВы хотите эмулировать успешную оплату?\n\n✅ ДА - активировать премиум\n❌ НЕТ - отменить')) {
-                // Эмуляция успешной оплаты в демо режиме
-                setTimeout(() => {
-                    handleSuccessfulPayment();
-                }, 1000);
-            }
-        }
-
-        function handleSuccessfulPayment() {
-            // Активируем премиум статус
-            isPremiumUser = true;
-            
-            // Сохраняем статус локально (в реальном приложении - на сервере)
-            if (window.Telegram?.WebApp?.initDataUnsafe?.user) {
-                const userId = window.Telegram.WebApp.initDataUnsafe.user.id;
-                localStorage.setItem(`premium_${userId}`, 'true');
-                localStorage.setItem(`premium_${userId}_date`, new Date().toISOString());
-            } else {
-                localStorage.setItem('premium_demo', 'true');
-                localStorage.setItem('premium_demo_date', new Date().toISOString());
-            }
-            
-            // Обновляем UI
-            updatePremiumUI();
-            
-            // Показываем поздравления
-            showSuccessMessage();
-            
-            // Возвращаемся на главную
-            setTimeout(() => {
-                showMainScreen();
-            }, 3000);
-        }
-
-        function handleCancelledPayment() {
-            alert('❌ Оплата отменена\n\nВы можете оформить подписку в любое время через меню Премиум');
-        }
-
-        function handleFailedPayment() {
-            alert('❌ Ошибка оплаты\n\nПопробуйте еще раз или обратитесь в поддержку');
-        }
-
-        function showSuccessMessage() {
-            // Создаем элемент с поздравлением
-            const successDiv = document.createElement('div');
-            successDiv.innerHTML = `
-                <div style="
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background: rgba(0,0,0,0.9);
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    z-index: 2000;
-                    color: white;
-                    text-align: center;
-                ">
-                    <div style="padding: 40px; border-radius: 20px; background: linear-gradient(135deg, #4ecdc4, #44a08d);">
-                        <div style="font-size: 60px; margin-bottom: 20px;">🎉</div>
-                        <h2 style="margin-bottom: 15px;">Поздравляем!</h2>
-                        <p style="margin-bottom: 20px;">Премиум подписка активирована!</p>
-                        <div style="font-size: 14px; opacity: 0.9;">
-                            ✨ 50+ эксклюзивных активностей<br>
-                            🎵 Новые категории: Музыка, Наука<br>
-                            📅 Планировщик недели<br>
-                            📊 Расширенная статистика
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            document.body.appendChild(successDiv);
-            
-            // Удаляем через 3 секунды
-            setTimeout(() => {
-                document.body.removeChild(successDiv);
-            }, 3000);
         }
 
         function shareApp() {
@@ -2491,15 +1778,11 @@
             }
         }
 
-        // Закрытие модальных окон при клике вне их
+        // Закрытие модального окна при клике вне его
         window.onclick = function(event) {
             const modal = document.getElementById('activity-modal');
-            const unlockModal = document.getElementById('unlock-modal');
             if (event.target === modal) {
                 closeModal();
-            }
-            if (event.target === unlockModal) {
-                closeUnlockModal();
             }
         }
     </script>
